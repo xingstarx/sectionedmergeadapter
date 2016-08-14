@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -30,23 +31,23 @@ public class MainActivity extends AppCompatActivity {
 
         List<String> array = new ArrayList<>();
 
-        for (int i = 0; i < 24; i++) {
+        for (int i = 0; i < 30; i++) {
             array.add("Row " + i);
         }
 
-//        ArrayAdapter<String> adapter1 =
-//                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
-//                        array.subList(0, 8));
-//        ArrayAdapter<String> adapter2 =
-//                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
-//                        array.subList(8, 16));
-//        ArrayAdapter<String> adapter3 =
-//                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
-//                        array.subList(16, 24));
+        ArrayAdapter<String> adapter1 =
+                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
+                        array.subList(0, 8));
+        ArrayAdapter<String> adapter2 =
+                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
+                        array.subList(8, 16));
+        ArrayAdapter<String> adapter3 =
+                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
+                        array.subList(16, 30));
 
-        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 8));
-        MyAdapter adapter2 = new MyAdapter(this, array.subList(8, 16));
-        MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 24));
+//        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 8));
+//        MyAdapter adapter2 = new MyAdapter(this, array.subList(8, 16));
+//        MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 30));
 
         View rootView1 = getLayoutInflater().inflate(R.layout.item_header, null, false);
         TextView tv1 = (TextView) rootView1.findViewById(R.id.headerText);
@@ -107,8 +108,6 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(mDatas.get(position));
             return convertView;
         }
-
-
     }
 
 //    @Override
