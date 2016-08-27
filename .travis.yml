@@ -1,19 +1,32 @@
+sudo: false
+
 language: android
 
 android:
   components:
-    - build-tools-24.0.0
+    - tools
+    - platform-tools
+    - build-tools-23.0.3
     - android-24
     - extra-android-m2repository
+    - extra-android-support
 
 jdk:
   - oraclejdk8
 
-script: "./gradlew assembleDebug;./gradlew testDebug"
+before_install:
+- export ANDROID_HOME=/usr/local/android-sdk
+- echo "sdk.dir=$ANDROID_HOME" > local.properties
+script: 'travis_retry ./gradlew assembleRelease'
+
 
 notifications:
   email: false
 
+before_cache:
+  - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
+
 cache:
   directories:
-    - $HOME/.gradle
+    - $HOME/.gradle/caches/
+    - $HOME/.gradle/wrapper/
