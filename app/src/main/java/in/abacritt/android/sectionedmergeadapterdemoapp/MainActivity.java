@@ -44,26 +44,19 @@ public class MainActivity extends AppCompatActivity {
                 new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
                         array.subList(16, 30));
 
-//        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 8));
-//        MyAdapter adapter2 = new MyAdapter(this, array.subList(8, 16));
-//        MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 30));
-
-        View rootView1 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-        TextView tv1 = (TextView) rootView1.findViewById(R.id.headerText);
+        View view1 = getLayoutInflater().inflate(R.layout.item_header, null, false);
+        TextView tv1 = (TextView) view1.findViewById(R.id.headerText);
         tv1.setText("Header 1");
-
-        View rootView2 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-        TextView tv2 = (TextView) rootView2.findViewById(R.id.headerText);
+        View view2 = getLayoutInflater().inflate(R.layout.item_header, null, false);
+        TextView tv2 = (TextView) view2.findViewById(R.id.headerText);
         tv2.setText("Header 2");
-
-        View rootView3 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-        TextView tv3 = (TextView) rootView3.findViewById(R.id.headerText);
+        View view3 = getLayoutInflater().inflate(R.layout.item_header, null, false);
+        TextView tv3 = (TextView) view3.findViewById(R.id.headerText);
         tv3.setText("Header 3");
-
         SectionedMergeAdapter adapter = new SectionedMergeAdapter();
-        adapter.addSection(new SectionedMergeAdapter.Section(this, rootView1, array.subList(0, 8)));
-        adapter.addSection(new SectionedMergeAdapter.Section(this, rootView2, array.subList(8, 16)));
-        adapter.addSection(new SectionedMergeAdapter.Section(this, rootView3, array.subList(16, 30)));
+        adapter.addSection(new SectionedMergeAdapter.Section(view1, adapter1));
+        adapter.addSection(new SectionedMergeAdapter.Section(view2, adapter2));
+        adapter.addSection(new SectionedMergeAdapter.Section(view3, adapter3));
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
