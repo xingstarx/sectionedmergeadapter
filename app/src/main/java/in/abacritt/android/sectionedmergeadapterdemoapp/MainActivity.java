@@ -8,8 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -36,16 +36,9 @@ public class MainActivity extends AppCompatActivity {
             array.add("Row " + i);
         }
 
-        ArrayAdapter<String> adapter1 =
-                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
-                        array.subList(0, 8));
-        ArrayAdapter<String> adapter2 =
-                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
-                        array.subList(8, 16));
-        ArrayAdapter<String> adapter3 =
-                new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,
-                        array.subList(16, 30));
-
+        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 8));
+        MyAdapter adapter2 = new MyAdapter(this, array.subList(8, 16));
+        MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 30));
         View view1 = getLayoutInflater().inflate(R.layout.item_header, null, false);
         TextView tv1 = (TextView) view1.findViewById(R.id.headerText);
         tv1.setText("Header 1");
@@ -55,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         View view3 = getLayoutInflater().inflate(R.layout.item_header, null, false);
         TextView tv3 = (TextView) view3.findViewById(R.id.headerText);
         tv3.setText("Header 3");
-        SectionedMergeAdapter adapter = new SectionedMergeAdapter();
+        final SectionedMergeAdapter adapter = new SectionedMergeAdapter();
         adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view1, adapter1));
         adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view2, adapter2));
         adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view3, adapter3));
@@ -64,12 +57,20 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                Log.e(TAG, "onItemClick position == " + position);
+                for (ListAdapter piece : adapter.getPieces()) {
+                    int size = piece.getCount();
+                    if (position < size) {
+                        SectionedMergeAdapter.HeaderAdapter headerAdapter = (SectionedMergeAdapter.HeaderAdapter) piece;
+                        headerAdapter.onItemClick(adapterView, view, position, id);
+                        break;
+                    }
+                    position -= size;
+                }
             }
         });
     }
 
-    class MyAdapter extends BaseAdapter {
+    class MyAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
         private List<String> mDatas = new ArrayList<>();
         private Context mContext;
 
@@ -102,19 +103,10 @@ public class MainActivity extends AppCompatActivity {
             textView.setText(mDatas.get(position));
             return convertView;
         }
+
+        @Override
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            Log.e(TAG, "position == " + position);
+        }
     }
-//    @Override
-//    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//        for (ListAdapter piece : mMergeAdapter.getPieces()) {
-//            int size = piece.getCount();
-//            if (position < size) {
-//                MessageWrapAdapter messageWrapAdapter = (MessageWrapAdapter) piece;
-//                MessageAdapter messageAdapter = (MessageAdapter) messageWrapAdapter.adapter;
-//                int wrapPosition = (int) mMergeAdapter.getItemId(position);
-//                messageAdapter.onItemClick(parent, view, wrapPosition, id);
-//                break;
-//            }
-//            position -= size;
-//        }
-//    }
 }
