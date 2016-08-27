@@ -15,9 +15,12 @@ jdk:
   - oraclejdk8
 
 before_install:
+- chmod +x gradlew
 - export ANDROID_HOME=/usr/local/android-sdk
 - echo "sdk.dir=$ANDROID_HOME" > local.properties
-script: 'travis_retry ./gradlew assembleRelease'
+
+script:
+  - ./gradlew assembleRelease
 
 
 notifications:
