@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity {
         TextView tv3 = (TextView) view3.findViewById(R.id.headerText);
         tv3.setText("Header 3");
         SectionedMergeAdapter adapter = new SectionedMergeAdapter();
-        adapter.addSection(new SectionedMergeAdapter.Section(view1, adapter1));
-        adapter.addSection(new SectionedMergeAdapter.Section(view2, adapter2));
-        adapter.addSection(new SectionedMergeAdapter.Section(view3, adapter3));
+        adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view1, adapter1));
+        adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view2, adapter2));
+        adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view3, adapter3));
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

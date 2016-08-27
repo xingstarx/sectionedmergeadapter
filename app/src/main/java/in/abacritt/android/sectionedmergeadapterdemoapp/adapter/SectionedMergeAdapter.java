@@ -14,27 +14,28 @@ import java.util.List;
 
 public class SectionedMergeAdapter extends MergeAdapter {
 
-    protected HashMap<Integer, Section> sections = new HashMap<>();
+    protected HashMap<Integer, HeaderAdapter> headerAdapterHashMap = new HashMap<>();
 
-    public void addSection(Section section) {
-        addAdapter(section);
+    public void addHeaderAdapter(HeaderAdapter headerAdapter) {
+        addAdapter(headerAdapter);
     }
 
-    public void addSection(int sectionId, Section section) {
-        this.sections.put(sectionId, section);
-        addSection(section);
+    public void addHeaderAdapter(int sectionId, HeaderAdapter headerAdapter) {
+        this.headerAdapterHashMap.put(sectionId, headerAdapter);
+        addHeaderAdapter(headerAdapter);
     }
 
-    public Section getSection(int sectionId) {
-        return this.sections.get(sectionId);
+    public HeaderAdapter getHeaderAdapter(int sectionId) {
+        return this.headerAdapterHashMap.get(sectionId);
     }
 
-    public static class Section extends BaseAdapter {
+    public static class HeaderAdapter extends BaseAdapter {
 
         private static final int ITEM_TYPE_COUNT = 2;
         private static final int ITEM_DATA = 0;
         private static final int ITEM_HEADER = 1;
         private View headerView;
+<<<<<<< 32294b787376643b597db4e6336044b88b941b3e
         private List<String> mDatas = new ArrayList<>();
         private Context mContext;
 
@@ -44,6 +45,14 @@ public class SectionedMergeAdapter extends MergeAdapter {
 
         public Section(Context mContext, View headerView, List<String> mDatas) {
             this.mContext = mContext;
+=======
+        private ListAdapter adapter;
+        private static final int ITEM_HEADER = 0;
+        private static final int ITEM_DATA = 1;
+        private static final int ITEM_TYPE_COUNT = 2;
+
+        public HeaderAdapter(View headerView, ListAdapter adapter) {
+>>>>>>> fix scroll to bottom crash bug
             this.headerView = headerView;
             this.mDatas = mDatas;
         }
@@ -75,6 +84,7 @@ public class SectionedMergeAdapter extends MergeAdapter {
         }
 
         @Override
+<<<<<<< 32294b787376643b597db4e6336044b88b941b3e
         public String getItem(int i) {
             if (i == 0)
                 return null;
@@ -99,15 +109,54 @@ public class SectionedMergeAdapter extends MergeAdapter {
                 TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
                 textView.setText(data);
                 return convertView;
+=======
+        public Object getItem(int position) {
+            if (position == 0)
+                return null;
+            else
+                return adapter.getItem(position - 1);
+        }
+
+        @Override
+        public long getItemId(int i) {
+            return i;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position == 0) {
+                return ITEM_HEADER;
+            }
+            return ITEM_DATA;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return ITEM_TYPE_COUNT;
+        }
+
+        @Override
+        public View getView(int position, View view, ViewGroup viewGroup) {
+            if (getItemViewType(position) == ITEM_HEADER) {
+                return headerView;
+            } else {
+                return adapter.getView(position - 1, view, viewGroup);
+>>>>>>> fix scroll to bottom crash bug
             }
         }
 
         @Override
         public boolean isEnabled(int position) {
-            if (position == 0)
+            if (getItemViewType(position) == 0)
                 return false;
+<<<<<<< 32294b787376643b597db4e6336044b88b941b3e
             else
                 return true;
+=======
+            else {
+                return adapter.isEnabled(position - 1);
+            }
+>>>>>>> fix scroll to bottom crash bug
         }
     }
 

@@ -7,11 +7,11 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.commonsware.cwac.merge.MergeAdapter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
+import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeAdapter;
 
 public class SectionedMergeAdapter extends MergeAdapter {
 
