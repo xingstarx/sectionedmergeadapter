@@ -2,6 +2,7 @@ package in.abacritt.android.sectionedmergeadapterdemoapp.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 
@@ -83,10 +84,21 @@ public class SectionedMergeAdapter extends MergeAdapter {
 
         @Override
         public boolean isEnabled(int position) {
-            if (getItemViewType(position) == 0) {
+            if (getItemViewType(position) == ITEM_HEADER) {
                 return false;
             } else {
                 return adapter.isEnabled(position - 1);
+            }
+        }
+
+        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (getItemViewType(position) == ITEM_HEADER) {
+                return;
+            }
+            if (adapter instanceof AdapterView.OnItemClickListener) {
+                ((AdapterView.OnItemClickListener) adapter).onItemClick(parent, view, position - 1, id);
+            } else {
+                throw new IllegalStateException("adapter must implements AdapterView.OnItemClickListener");
             }
         }
     }
