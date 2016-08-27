@@ -16,7 +16,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.abacritt.android.library.SectionedMergeAdapter;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -62,9 +61,9 @@ public class MainActivity extends AppCompatActivity {
         tv3.setText("Header 3");
 
         SectionedMergeAdapter adapter = new SectionedMergeAdapter();
-        adapter.addSection(new SectionedMergeAdapter.Section(rootView1, adapter1));
-        adapter.addSection(new SectionedMergeAdapter.Section(rootView2, adapter2));
-        adapter.addSection(new SectionedMergeAdapter.Section(rootView3, adapter3));
+        adapter.addSection(new SectionedMergeAdapter.Section(this, rootView1, array.subList(0, 8)));
+        adapter.addSection(new SectionedMergeAdapter.Section(this, rootView2, array.subList(8, 16)));
+        adapter.addSection(new SectionedMergeAdapter.Section(this, rootView3, array.subList(16, 30)));
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -109,7 +108,6 @@ public class MainActivity extends AppCompatActivity {
             return convertView;
         }
     }
-
 //    @Override
 //    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 //        for (ListAdapter piece : mMergeAdapter.getPieces()) {

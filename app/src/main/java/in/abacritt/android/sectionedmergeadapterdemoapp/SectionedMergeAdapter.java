@@ -1,6 +1,7 @@
-package in.abacritt.android.library;
+package in.abacritt.android.sectionedmergeadapterdemoapp;
 
 import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -11,7 +12,6 @@ import com.commonsware.cwac.merge.MergeAdapter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 
 public class SectionedMergeAdapter extends MergeAdapter {
 
@@ -94,7 +94,7 @@ public class SectionedMergeAdapter extends MergeAdapter {
                 return headerView;
             } else {
                 if (convertView == null) {
-//                    convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list, parent, false);
+                    convertView = LayoutInflater.from(mContext).inflate(android.R.layout.simple_list_item_1, parent, false);
                 }
                 String data = getItem(position);
                 TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
