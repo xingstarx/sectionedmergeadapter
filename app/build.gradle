@@ -24,5 +24,4 @@ dependencies {
 
 
     compile 'com.android.support:appcompat-v7:24.1.1'
-    compile 'com.commonsware.cwac:merge:1.1.1'
 }
