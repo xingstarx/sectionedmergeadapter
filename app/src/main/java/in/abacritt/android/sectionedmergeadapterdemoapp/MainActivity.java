@@ -16,6 +16,8 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.SectionedMergeAdapter;
+
 
 public class MainActivity extends AppCompatActivity {
 
