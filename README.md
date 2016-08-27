@@ -5,33 +5,30 @@ This is a library based on `MergeAdapter` by CommonsWare. It allows you to work 
 ### Example code
 
 ```java
-ListView listView = (ListView) findViewById(android.R.id.list);
-
 ArrayAdapter<String> adapter1 =
-        new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1, arrayList1);
+        new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,array.subList(0, 8));
 ArrayAdapter<String> adapter2 =
-        new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1, arrayList2);
+        new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,array.subList(8, 16));
 ArrayAdapter<String> adapter3 =
-        new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1, arrayList3);
-
-TextView tv1 = new TextView(this);
-tv1.setText(R.string.header_1);
-TextView tv2 = new TextView(this);
-tv2.setText(R.string.header_2);
-TextView tv3 = new TextView(this);
-tv3.setText(R.string.header_3);
-
+        new ArrayAdapter<>(this, R.layout.item_list, android.R.id.text1,array.subList(16, 30));
+View view1 = getLayoutInflater().inflate(R.layout.item_header, null, false);
+TextView tv1 = (TextView) view1.findViewById(R.id.headerText);
+tv1.setText("Header 1");
+View view2 = getLayoutInflater().inflate(R.layout.item_header, null, false);
+TextView tv2 = (TextView) view2.findViewById(R.id.headerText);
+tv2.setText("Header 2");
+View view3 = getLayoutInflater().inflate(R.layout.item_header, null, false);
+TextView tv3 = (TextView) view3.findViewById(R.id.headerText);
+tv3.setText("Header 3");
 SectionedMergeAdapter adapter = new SectionedMergeAdapter();
-
-adapter.addSection(new SectionedMergeAdapter.Section(tv1, adapter1));
-adapter.addSection(new SectionedMergeAdapter.Section(tv2, adapter2));
-adapter.addSection(new SectionedMergeAdapter.Section(tv3, adapter3));
-
+adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view1, adapter1));
+adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view2, adapter2));
+adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view3, adapter3));
 listView.setAdapter(adapter);
 ```
 
 ### Note
-Since `SectionedMergeAdapter` is extending from the `MergeAdapter`, you can use other `MergeAdapter` functionalities like `addView()`, `addViews()` and `addAdapter()` with this library.
+Since `HeaderAdapter` is extending from the `MergeAdapter`, you can use other `SectionedMergeAdapter` functionalities like `addHeaderAdapter()` with this library.
 
 For a detailed list of things supported with `MergeAdapter` check out [CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge).
 
