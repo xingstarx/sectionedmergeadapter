@@ -1,0 +1,19 @@
+language: android
+
+android:
+  components:
+    - build-tools-24.0.0
+    - android-24
+    - extra-android-m2repository
+
+jdk:
+  - oraclejdk8
+
+script: "./gradlew assembleDebug;./gradlew testDebug"
+
+notifications:
+  email: false
+
+cache:
+  directories:
+    - $HOME/.gradle
