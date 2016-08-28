@@ -3,7 +3,6 @@ package in.abacritt.android.sectionedmergeadapterdemoapp;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +11,13 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.SectionedMergeAdapter;
+import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.HeaderAdapter;
+import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -48,10 +49,10 @@ public class MainActivity extends AppCompatActivity {
         View view3 = getLayoutInflater().inflate(R.layout.item_header, null, false);
         TextView tv3 = (TextView) view3.findViewById(R.id.headerText);
         tv3.setText("Header 3");
-        final SectionedMergeAdapter adapter = new SectionedMergeAdapter();
-        adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view1, adapter1));
-        adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view2, adapter2));
-        adapter.addHeaderAdapter(new SectionedMergeAdapter.HeaderAdapter(view3, adapter3));
+        final MergeAdapter adapter = new MergeAdapter();
+        adapter.addAdapter(new HeaderAdapter(view1, adapter1));
+        adapter.addAdapter(new HeaderAdapter(view2, adapter2));
+        adapter.addAdapter(new HeaderAdapter(view3, adapter3));
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -60,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 for (ListAdapter piece : adapter.getPieces()) {
                     int size = piece.getCount();
                     if (position < size) {
-                        SectionedMergeAdapter.HeaderAdapter headerAdapter = (SectionedMergeAdapter.HeaderAdapter) piece;
+                        HeaderAdapter headerAdapter = (HeaderAdapter) piece;
                         headerAdapter.onItemClick(adapterView, view, position, id);
                         break;
                     }
@@ -106,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Log.e(TAG, "position == " + position);
+            Toast.makeText(mContext, "position == " + position, Toast.LENGTH_SHORT).show();
         }
     }
 }
