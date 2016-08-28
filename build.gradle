@@ -12,10 +12,6 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
-
-        maven {
-            url "https://s3.amazonaws.com/repo.commonsware.com"
-        }
     }
 }
 
