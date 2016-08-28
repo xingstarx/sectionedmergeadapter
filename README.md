@@ -67,4 +67,4 @@ copy HeaderAdapter, and MergeAdapter in your project
 
 ### Screenshot
 
-![Screenshot](app/Screenshot_20160724-231927.png)
+![Screenshot](art/mergeadapter_2016_08_28_001.png)
