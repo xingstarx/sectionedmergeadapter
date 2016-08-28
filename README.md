@@ -68,3 +68,12 @@ copy HeaderAdapter, and MergeAdapter in your project
 ### Screenshot
 
 ![Screenshot](art/mergeadapter_2016_08_28_001.png)
+
+### Thanks
+[CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge)
+[sectionedmergeadapter](https://github.com/abacritt/sectionedmergeadapter)
+
+
+### Contribution
+
+ read [CONTRIBUTING.md](/CONTRIBUTING.md)
