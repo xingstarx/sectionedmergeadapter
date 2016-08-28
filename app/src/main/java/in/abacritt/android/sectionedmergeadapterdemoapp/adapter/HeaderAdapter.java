@@ -7,7 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 
 
-public class HeaderAdapter extends BaseAdapter {
+public class HeaderAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
 
     private static final int ITEM_HEADER = 0;
     private static final int ITEM_DATA = 1;
@@ -78,8 +78,6 @@ public class HeaderAdapter extends BaseAdapter {
         }
         if (adapter instanceof AdapterView.OnItemClickListener) {
             ((AdapterView.OnItemClickListener) adapter).onItemClick(parent, view, position - 1, id);
-        } else {
-            throw new IllegalStateException("adapter must implements AdapterView.OnItemClickListener");
         }
     }
 }

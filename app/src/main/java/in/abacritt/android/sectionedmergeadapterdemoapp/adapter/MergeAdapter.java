@@ -18,6 +18,7 @@ package in.abacritt.android.sectionedmergeadapterdemoapp.adapter;
 import android.database.DataSetObserver;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.SectionIndexer;
@@ -189,6 +190,19 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
         return false;
     }
 
+    /**
+     * get the specific Adapter to call it's onItemClick event
+     */
+    public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+        for (ListAdapter piece : getPieces()) {
+            int size = piece.getCount();
+            if (position < size && piece instanceof AdapterView.OnItemClickListener) {
+                ((AdapterView.OnItemClickListener) piece).onItemClick(adapterView, view, position, id);
+                break;
+            }
+            position -= size;
+        }
+    }
     /**
      * Get a View that displays the data at the specified
      * position in the data set.

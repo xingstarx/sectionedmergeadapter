@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -58,15 +57,7 @@ public class MainActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                for (ListAdapter piece : adapter.getPieces()) {
-                    int size = piece.getCount();
-                    if (position < size) {
-                        HeaderAdapter headerAdapter = (HeaderAdapter) piece;
-                        headerAdapter.onItemClick(adapterView, view, position, id);
-                        break;
-                    }
-                    position -= size;
-                }
+                adapter.onItemClick(adapterView, view, position, id);
             }
         });
     }
