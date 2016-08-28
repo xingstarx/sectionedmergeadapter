@@ -44,15 +44,7 @@ OnItemClick event
 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                for (ListAdapter piece : adapter.getPieces()) {
-                    int size = piece.getCount();
-                    if (position < size) {
-                        HeaderAdapter headerAdapter = (HeaderAdapter) piece;
-                        headerAdapter.onItemClick(adapterView, view, position, id);
-                        break;
-                    }
-                    position -= size;
-                }
+                adapter.onItemClick(adapterView, view, position, id);
             }
         });
 ```
