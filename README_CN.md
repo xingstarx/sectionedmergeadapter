@@ -1,20 +1,16 @@
 ## MergeAdapter
 
-This is a repo based on [MergeAdapter](https://github.com/commonsguy/cwac-merge).
-
-### Chinese 
-[中文](/README_CN.md)
-
+基于 CommonsWare的 [MergeAdapter](https://github.com/commonsguy/cwac-merge) 的扩展
  
-### Feature
- Support 
-- It allows you to work with sections and subheaders in your `ListView`s. With this library, you get the advantage of stitching together the rows and the header of the subsection in the subsection itself. For example, if there are no rows in a subsection of the `ListView`, the header of the subsection is also not shown.
-- Support OnItemClick event
+### 新增特性
+ - 支持HeaderView的HeaderAdapter,Adapter有内容时显示header,没有内容不显示header
+ - 对全局OnItemClick事件的支持
+ 
+ 
 
+### 实例代码
 
-### Example code
-
-HeaderAdapter with headerview 
+支持HeaderView的HeaderAdapter
 
 ```java
 MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 8));
@@ -38,7 +34,7 @@ listView.setAdapter(adapter);
 ```
 
 
-OnItemClick event 
+支持OnItemClick事件
 
 ```java
 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -58,13 +54,23 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 ```
 
 
-### Note
-MergeAdapter copy from [CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge)
-HeaderAdapter support header, onItemClick event , you only focus on your business adapter
+### 描述
+MergeAdapter从[CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge) 复制过来的
+HeaderAdapter 在原来的Adapter中添加了header,使用时只需要关注自己的Adapter就行,不需要自己处理header的显示问题,当然如果有特殊需求,可以自己在修改,支持OnItemClick
 
-### Installation
-copy HeaderAdapter, and MergeAdapter in your project
+
 
 ### Screenshot
 
-![Screenshot](app/Screenshot_20160724-231927.png)
+![Screenshot](art/mergeadapter_2016_08_28_001.png)
+
+
+
+### 感谢
+[CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge)
+[sectionedmergeadapter](https://github.com/abacritt/sectionedmergeadapter)
+
+
+### Contribution
+
+ 请看[CONTRIBUTING.md](/CONTRIBUTING.md)
