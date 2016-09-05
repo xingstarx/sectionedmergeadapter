@@ -38,7 +38,7 @@ public class PinnedListViewActivity extends AppCompatActivity {
 
         List<String> array = new ArrayList<>();
 
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 100; i++) {
             array.add("Row " + i);
         }
 
@@ -53,12 +53,12 @@ public class PinnedListViewActivity extends AppCompatActivity {
         tv3.setText("Header 3");
         final MergeAdapter adapter = new PinnedMergeAdapter();
 
-        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 30), view1);
-//        MyAdapter adapter2 = new MyAdapter(this, array.subList(8, 16), view2);
+        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 50), view1);
+        MyAdapter adapter2 = new MyAdapter(this, array.subList(51, 100), view2);
 //        MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 30), view3);
 
         adapter.addAdapter(adapter1);
-//        adapter.addAdapter(adapter2);
+        adapter.addAdapter(adapter2);
 //        adapter.addAdapter(adapter3);
 
         listView.setAdapter(adapter);
@@ -119,7 +119,7 @@ public class PinnedListViewActivity extends AppCompatActivity {
 
         @Override
         public int getItemViewType(int position) {
-            if (position % 4 == 0) {
+            if (position % 15 == 0) {
                 return ITEM_OTHER;
             }
             return ITEM_MESSAGE;
