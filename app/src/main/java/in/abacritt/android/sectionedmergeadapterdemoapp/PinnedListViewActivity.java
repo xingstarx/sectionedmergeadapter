@@ -1,11 +1,10 @@
 package in.abacritt.android.sectionedmergeadapterdemoapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -19,11 +18,12 @@ import java.util.List;
 
 import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.HeaderAdapter;
 import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeAdapter;
+import in.abacritt.android.sectionedmergeadapterdemoapp.widget.PinnedSectionListView;
 
 
-public class MainActivity extends AppCompatActivity {
+public class PinnedListViewActivity extends AppCompatActivity {
 
-    private String TAG = "MainActivity";
+    private String TAG = "PinnedListViewActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +64,13 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    class MyAdapter extends BaseAdapter implements AdapterView.OnItemClickListener {
+
+    public static void startPinnedActivity (Context context) {
+        Intent intent = new Intent(context, PinnedListViewActivity.class);
+        context.startActivity(intent);
+    }
+
+    class MyAdapter extends BaseAdapter implements AdapterView.OnItemClickListener, PinnedSectionListView.PinnedSectionListAdapter {
         private List<String> mDatas = new ArrayList<>();
         private Context mContext;
 
@@ -102,21 +108,15 @@ public class MainActivity extends AppCompatActivity {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             Toast.makeText(mContext, "position == " + position, Toast.LENGTH_SHORT).show();
         }
-    }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return super.onCreateOptionsMenu(menu);
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.pinned_listview:
-                PinnedListViewActivity.startPinnedActivity(this);
-                return true;
+        @Override
+        public boolean isItemViewTypePinned(int viewType) {
+            return false;
         }
-        return super.onOptionsItemSelected(item);
+
+        @Override
+        public boolean isItemPinned(int position) {
+            return false;
+        }
     }
 }
