@@ -16,8 +16,8 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.HeaderAdapter;
 import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeAdapter;
+import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.PinnedMergeAdapter;
 import in.abacritt.android.sectionedmergeadapterdemoapp.widget.PinnedSectionListView;
 
 
@@ -25,10 +25,15 @@ public class PinnedListViewActivity extends AppCompatActivity {
 
     private String TAG = "PinnedListViewActivity";
 
+    public static void startPinnedActivity(Context context) {
+        Intent intent = new Intent(context, PinnedListViewActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_pinned_list_view);
 
         ListView listView = (ListView) findViewById(android.R.id.list);
 
@@ -38,9 +43,6 @@ public class PinnedListViewActivity extends AppCompatActivity {
             array.add("Row " + i);
         }
 
-        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 8));
-        MyAdapter adapter2 = new MyAdapter(this, array.subList(8, 16));
-        MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 30));
         View view1 = getLayoutInflater().inflate(R.layout.item_header, null, false);
         TextView tv1 = (TextView) view1.findViewById(R.id.headerText);
         tv1.setText("Header 1");
@@ -50,10 +52,15 @@ public class PinnedListViewActivity extends AppCompatActivity {
         View view3 = getLayoutInflater().inflate(R.layout.item_header, null, false);
         TextView tv3 = (TextView) view3.findViewById(R.id.headerText);
         tv3.setText("Header 3");
-        final MergeAdapter adapter = new MergeAdapter();
-        adapter.addAdapter(new HeaderAdapter(view1, adapter1));
-        adapter.addAdapter(new HeaderAdapter(view2, adapter2));
-        adapter.addAdapter(new HeaderAdapter(view3, adapter3));
+        final MergeAdapter adapter = new PinnedMergeAdapter();
+
+        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 8), view1);
+        MyAdapter adapter2 = new MyAdapter(this, array.subList(8, 16), view2);
+        MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 30), view3);
+
+        adapter.addAdapter(adapter1);
+        adapter.addAdapter(adapter2);
+        adapter.addAdapter(adapter3);
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -64,48 +71,75 @@ public class PinnedListViewActivity extends AppCompatActivity {
         });
     }
 
-
-    public static void startPinnedActivity (Context context) {
-        Intent intent = new Intent(context, PinnedListViewActivity.class);
-        context.startActivity(intent);
-    }
-
     class MyAdapter extends BaseAdapter implements AdapterView.OnItemClickListener, PinnedSectionListView.PinnedSectionListAdapter {
+        private static final int ITEM_TYPE_COUNT = 2;
+        private static final int ITEM_MESSAGE = 0;
+        private static final int ITEM_HEADER = 1;
         private List<String> mDatas = new ArrayList<>();
         private Context mContext;
+        private View mHeaderView;
 
-        public MyAdapter(Context mContext, List<String> mDatas) {
+        public MyAdapter(Context mContext, View mHeaderView) {
             this.mContext = mContext;
+            this.mHeaderView = mHeaderView;
+        }
+
+        public MyAdapter(Context mContext, List<String> mDatas, View mHeaderView) {
             this.mDatas = mDatas;
+            this.mContext = mContext;
+            this.mHeaderView = mHeaderView;
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @Override
+        public int getViewTypeCount() {
+            return ITEM_TYPE_COUNT;
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            if (position == 0) {
+                return ITEM_HEADER;
+            }
+            return ITEM_MESSAGE;
         }
 
         @Override
         public int getCount() {
-            return mDatas.size();
+            return mDatas.size() == 0 ? 0 : mDatas.size() + 1;
         }
 
         @Override
-        public Object getItem(int i) {
-            return mDatas.get(i);
-        }
-
-        @Override
-        public long getItemId(int i) {
-            return i;
+        public String getItem(int position) {
+            if (position == 0) {
+                return null;
+            } else {
+                return mDatas.get(position - 1);
+            }
         }
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
+            if (getItemViewType(position) == ITEM_HEADER) {
+                return mHeaderView;
+            }
             if (convertView == null) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list, parent, false);
             }
             TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
-            textView.setText(mDatas.get(position));
+            textView.setText(getItem(position));
             return convertView;
         }
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            if (getItemViewType(position) == ITEM_HEADER) {
+                return;
+            }
             Toast.makeText(mContext, "position == " + position, Toast.LENGTH_SHORT).show();
         }
 
@@ -116,6 +150,9 @@ public class PinnedListViewActivity extends AppCompatActivity {
 
         @Override
         public boolean isItemPinned(int position) {
+            if (getItemViewType(position) == ITEM_HEADER) {
+                return true;
+            }
             return false;
         }
     }
