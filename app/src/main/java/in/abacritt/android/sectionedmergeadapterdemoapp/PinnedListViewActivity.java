@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -53,13 +54,13 @@ public class PinnedListViewActivity extends AppCompatActivity {
         tv3.setText("Header 3");
         final MergeAdapter adapter = new PinnedMergeAdapter();
 
-        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 50), view1);
-        MyAdapter adapter2 = new MyAdapter(this, array.subList(51, 100), view2);
-//        MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 30), view3);
+        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 10), view1);
+        MyAdapter adapter2 = new MyAdapter(this, array.subList(11, 20), view2);
+        MyAdapter adapter3 = new MyAdapter(this, array.subList(21, 30), view3);
 
         adapter.addAdapter(adapter1);
         adapter.addAdapter(adapter2);
-//        adapter.addAdapter(adapter3);
+        adapter.addAdapter(adapter3);
 
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -73,7 +74,7 @@ public class PinnedListViewActivity extends AppCompatActivity {
     class MyAdapter extends BaseAdapter implements AdapterView.OnItemClickListener, PinnedSectionListView.PinnedSectionListAdapter {
         private static final int ITEM_TYPE_COUNT = 2;
         private static final int ITEM_MESSAGE = 0;
-        private static final int ITEM_OTHER = 1;
+        private static final int ITEM_HEADER = 1;
         private List<String> mDatas = new ArrayList<>();
         private Context mContext;
         private View mHeaderView;
@@ -95,49 +96,56 @@ public class PinnedListViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (getItemViewType(position) == ITEM_OTHER) {
-                if (convertView == null) {
-                    convertView =  getLayoutInflater().inflate(R.layout.item_list, parent, false);
-                }
-                TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
-                textView.setText(getItem(position));
-            } else {
-                if (convertView == null) {
-                    convertView =  getLayoutInflater().inflate(R.layout.item_list_2, parent, false);
-                }
-                TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
-                textView.setText(getItem(position));
-            }
-            return convertView;
-        }
-
-        @Override
         public int getViewTypeCount() {
             return ITEM_TYPE_COUNT;
         }
 
         @Override
         public int getItemViewType(int position) {
-            if (position % 9 == 0) {
-                return ITEM_OTHER;
+            if (position == 0) {
+                return ITEM_HEADER;
             }
             return ITEM_MESSAGE;
         }
 
         @Override
         public int getCount() {
-            return mDatas.size() == 0 ? 0 : mDatas.size();
+            return mDatas.size() == 0 ? 0 : mDatas.size() + 1;
         }
 
         @Override
         public String getItem(int position) {
-            return mDatas.get(position);
+            if (position == 0) {
+                return null;
+            } else {
+                return mDatas.get(position - 1);
+            }
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (getItemViewType(position) == ITEM_HEADER) {
+                if (convertView == null) {
+                    convertView = getLayoutInflater().inflate(R.layout.item_header, null, false);
+                }
+                TextView tv = (TextView) convertView.findViewById(R.id.headerText);
+                tv.setText("Header 1");
+                return convertView;
+            }
+            if (convertView == null) {
+                convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list, parent, false);
+            }
+            TextView textView = (TextView) convertView.findViewById(android.R.id.text1);
+            textView.setText(getItem(position));
+            return convertView;
         }
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            Toast.makeText(mContext, "Hello World", Toast.LENGTH_SHORT).show();
+            if (getItemViewType(position) == ITEM_HEADER) {
+                return;
+            }
+            Toast.makeText(mContext, "position == " + position, Toast.LENGTH_SHORT).show();
         }
 
         @Override
@@ -147,7 +155,7 @@ public class PinnedListViewActivity extends AppCompatActivity {
 
         @Override
         public boolean isItemPinned(int position) {
-            return getItemViewType(position) == ITEM_OTHER;
+            return getItemViewType(position) == ITEM_HEADER;
         }
     }
 }
