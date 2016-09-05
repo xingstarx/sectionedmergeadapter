@@ -119,7 +119,7 @@ public class PinnedListViewActivity extends AppCompatActivity {
 
         @Override
         public int getItemViewType(int position) {
-            if (position % 15 == 0) {
+            if (position % 9 == 0) {
                 return ITEM_OTHER;
             }
             return ITEM_MESSAGE;
