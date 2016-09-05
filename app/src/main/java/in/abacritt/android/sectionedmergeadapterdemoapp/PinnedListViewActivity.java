@@ -42,21 +42,11 @@ public class PinnedListViewActivity extends AppCompatActivity {
         for (int i = 0; i < 100; i++) {
             array.add("Row " + i);
         }
-
-        View view1 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-        TextView tv1 = (TextView) view1.findViewById(R.id.headerText);
-        tv1.setText("Header 1");
-        View view2 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-        TextView tv2 = (TextView) view2.findViewById(R.id.headerText);
-        tv2.setText("Header 2");
-        View view3 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-        TextView tv3 = (TextView) view3.findViewById(R.id.headerText);
-        tv3.setText("Header 3");
         final MergeAdapter adapter = new PinnedMergeAdapter();
 
-        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 10), view1);
-        MyAdapter adapter2 = new MyAdapter(this, array.subList(11, 20), view2);
-        MyAdapter adapter3 = new MyAdapter(this, array.subList(21, 30), view3);
+        MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 13), 1);
+        MyAdapter adapter2 = new MyAdapter(this, array.subList(14, 29), 2);
+        MyAdapter adapter3 = new MyAdapter(this, array.subList(30, 50), 3);
 
         adapter.addAdapter(adapter1);
         adapter.addAdapter(adapter2);
@@ -71,23 +61,33 @@ public class PinnedListViewActivity extends AppCompatActivity {
         });
     }
 
+    public void renderHeaderView(View view, int type) {
+        TextView tv = (TextView) view.findViewById(R.id.headerText);
+        switch (type) {
+            case 1:
+                tv.setText("Header 1");
+                break;
+            case 2:
+                tv.setText("Header 2");
+                break;
+            case 3:
+                tv.setText("Header 3");
+                break;
+        }
+    }
+
     class MyAdapter extends BaseAdapter implements AdapterView.OnItemClickListener, PinnedSectionListView.PinnedSectionListAdapter {
         private static final int ITEM_TYPE_COUNT = 2;
         private static final int ITEM_MESSAGE = 0;
         private static final int ITEM_HEADER = 1;
         private List<String> mDatas = new ArrayList<>();
         private Context mContext;
-        private View mHeaderView;
+        private int mHeaderType;
 
-        public MyAdapter(Context mContext, View mHeaderView) {
-            this.mContext = mContext;
-            this.mHeaderView = mHeaderView;
-        }
-
-        public MyAdapter(Context mContext, List<String> mDatas, View mHeaderView) {
+        public MyAdapter(Context mContext, List<String> mDatas, int headerType) {
             this.mDatas = mDatas;
             this.mContext = mContext;
-            this.mHeaderView = mHeaderView;
+            this.mHeaderType = headerType;
         }
 
         @Override
@@ -128,8 +128,7 @@ public class PinnedListViewActivity extends AppCompatActivity {
                 if (convertView == null) {
                     convertView = getLayoutInflater().inflate(R.layout.item_header, null, false);
                 }
-                TextView tv = (TextView) convertView.findViewById(R.id.headerText);
-                tv.setText("Header 1");
+                renderHeaderView(convertView, mHeaderType);
                 return convertView;
             }
             if (convertView == null) {

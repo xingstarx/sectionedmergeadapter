@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MergeAdapter</string>
+    <string name="activity_pinned_merge_adapter">PinnedMergeAdapter</string>
 </resources>
