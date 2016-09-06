@@ -3,8 +3,9 @@
 基于 CommonsWare的 [MergeAdapter](https://github.com/commonsguy/cwac-merge) 的扩展
  
 ### 新增特性
- - 支持HeaderView的HeaderAdapter,Adapter有内容时显示header,没有内容不显示header
+ - 支持HeaderView形式的HeadAdapter
  - 对全局OnItemClick事件的支持
+ - 支持PinnedListView的MergeAdapter
  
  
 
@@ -13,22 +14,16 @@
 支持HeaderView的HeaderAdapter
 
 ```java
-MyAdapter adapter1 = new MyAdapter(this, array.subList(0, 8));
-MyAdapter adapter2 = new MyAdapter(this, array.subList(8, 16));
-MyAdapter adapter3 = new MyAdapter(this, array.subList(16, 30));
-View view1 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-TextView tv1 = (TextView) view1.findViewById(R.id.headerText);
-tv1.setText("Header 1");
-View view2 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-TextView tv2 = (TextView) view2.findViewById(R.id.headerText);
-tv2.setText("Header 2");
-View view3 = getLayoutInflater().inflate(R.layout.item_header, null, false);
-TextView tv3 = (TextView) view3.findViewById(R.id.headerText);
-tv3.setText("Header 3");
+HeaderAdapter adapter1 = new HeaderAdapter(this, new ArrayList<>(array.subList(0, 8)), R.layout.item_list,R.layout.item_header);
+HeaderAdapter adapter2 = new HeaderAdapter(this, new ArrayList<>(array.subList(8, 16)), R.layout.item_list,R.layout.item_header);
+HeaderAdapter adapter3 = new HeaderAdapter(this, new ArrayList<>(array.subList(16, 30)), R.layout.item_list,R.layout.item_header);
+adapter1.setHeaderType(1);
+adapter2.setHeaderType(2);
+adapter3.setHeaderType(3);
 final MergeAdapter adapter = new MergeAdapter();
-adapter.addAdapter(new HeaderAdapter(view1, adapter1));
-adapter.addAdapter(new HeaderAdapter(view2, adapter2));
-adapter.addAdapter(new HeaderAdapter(view3, adapter3));
+adapter.addAdapter(adapter1);
+adapter.addAdapter(adapter2);
+adapter.addAdapter(adapter3);
 
 listView.setAdapter(adapter);
 ```
@@ -48,9 +43,10 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 ### 描述
 MergeAdapter从[CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge) 复制过来的
-HeaderAdapter 在原来的Adapter中添加了header,使用时只需要关注自己的Adapter就行,不需要自己处理header的显示问题,当然如果有特殊需求,可以自己在修改,支持OnItemClick
 
+HeaderAdapter 需要自己继承ListHeaderBaseAdapter,实现固定的方法，参考MainActivity即可
 
+pinned-section-listview 从[pinned-section-listview](https://github.com/beworker/pinned-section-listview) 复制的listview,修改了部分源代码，主要是修改了PinnedSectionListAdapter的isItemViewTypePinned, 用isItemPinned(position)代替,相关联部分一并改动
 
 ### Screenshot
 
@@ -60,8 +56,10 @@ HeaderAdapter 在原来的Adapter中添加了header,使用时只需要关注自�
 
 ### 感谢
 [CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge)
+
 [sectionedmergeadapter](https://github.com/abacritt/sectionedmergeadapter)
 
+[pinned-section-listview](https://github.com/beworker/pinned-section-listview)
 
 ### Contribution
 
