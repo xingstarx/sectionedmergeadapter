@@ -3,6 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
         android:id="@+id/pinned_listview"
-        android:title="Pinned ListView"
+        android:title="PV"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/recycler_view"
+        android:title="RV"
         app:showAsAction="always" />
 </menu>

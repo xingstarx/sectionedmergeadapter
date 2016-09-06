@@ -62,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
             case R.id.pinned_listview:
                 PinnedListViewActivity.startPinnedActivity(this);
                 return true;
+            case R.id.recycler_view:
+                RecyclerViewActivity.startRecyclerViewActivity(this);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }
