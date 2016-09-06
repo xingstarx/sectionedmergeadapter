@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+            if (getItemViewType(position) == TYPE_HEADER) {
+                return;
+            }
+            Toast.makeText(context, "position == " + position, Toast.LENGTH_SHORT).show();
         }
 
         @Override
