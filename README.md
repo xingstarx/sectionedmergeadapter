@@ -45,6 +45,7 @@ listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
 ### Note
 MergeAdapter copy from [CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge)
+
 HeaderAdapter: you need extends ListHeaderBaseAdapter to implements prepareViewForDisplay method , this contains headerview and contentView, if you don't know , you could reference examples.
 
 if you want use pinned-section-listview, you could reference PinnedListViewActivity , it shows how to use PinnedSectionListView and PinnedMergeAdapter. I copied PinnedSectionListView.java and do some modifications,we use isItemPinned(int position) method rather than isItemViewTypePinned(viewType)
@@ -57,8 +58,11 @@ copy ListHeaderBaseAdapter, ListBaseAdapter, and MergeAdapter in your project
 ![Screenshot](art/mergeadapter_2016_08_28_001.png)
 
 ### Thanks
+
 [CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge)
+
 [sectionedmergeadapter](https://github.com/abacritt/sectionedmergeadapter)
+
 [pinned-section-listview](https://github.com/beworker/pinned-section-listview)
 
 
