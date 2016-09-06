@@ -9,12 +9,12 @@ import java.util.ArrayList;
 /**
  * Created by xiongxingxing on 15/11/15.
  *
- * @desc listview 处理多ItemViewType的
+ * @desc ListHeaderBaseAdapter 处理多ItemViewType的
  */
 public class ListHeaderBaseAdapter<T> extends ListBaseAdapter<T> {
-    private static final int TYPE_HEADER = 0;
-    private static final int TYPE_CONTENT = 1;
-    private static final int TYPE_MAX_COUNT = 2;
+    protected static final int TYPE_HEADER = 0;
+    protected static final int TYPE_CONTENT = 1;
+    protected static final int TYPE_MAX_COUNT = 2;
     protected int headerViewResourceId;
 
     public ListHeaderBaseAdapter(Context ctx, ArrayList<T> dataList, int theRowResourceId) {

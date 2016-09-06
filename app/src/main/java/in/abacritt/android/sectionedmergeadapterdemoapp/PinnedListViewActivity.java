@@ -62,7 +62,7 @@ public class PinnedListViewActivity extends AppCompatActivity {
     }
 
     public void renderHeaderView(View view, int type) {
-        TextView tv = (TextView) view.findViewById(R.id.headerText);
+        TextView tv = (TextView) view.findViewById(R.id.header_text);
         switch (type) {
             case 1:
                 tv.setText("Header 1");
