@@ -8,8 +8,9 @@ This is a repo based on [MergeAdapter](https://github.com/commonsguy/cwac-merge)
  
 ### Feature
  Support 
-- It allows you to work with sections and subheaders in your `ListView`s. With this library, you get the advantage of stitching together the rows and the header of the subsection in the subsection itself. For example, if there are no rows in a subsection of the `ListView`, the header of the subsection is also not shown.
+- HeaderView , your Adapter need extends ListHeaderBaseAdapter 
 - Support OnItemClick event
+- Pinned listview with MergeAdapter 
 
 ### Example code
 
@@ -51,7 +52,7 @@ HeaderAdapter: you need extends ListHeaderBaseAdapter to implements prepareViewF
 if you want use pinned-section-listview, you could reference PinnedListViewActivity , it shows how to use PinnedSectionListView and PinnedMergeAdapter. I copied PinnedSectionListView.java and do some modifications,we use isItemPinned(int position) method rather than isItemViewTypePinned(viewType)
 
 ### Installation
-copy ListHeaderBaseAdapter, ListBaseAdapter, and MergeAdapter in your project
+copy ListHeaderBaseAdapter, ListBaseAdapter, and MergeAdapter, PinnedMergeAdapter in your project
 
 ### Screenshot
 
