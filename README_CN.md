@@ -52,6 +52,8 @@ pinned-section-listview 从[pinned-section-listview](https://github.com/beworker
 
 ![Screenshot](art/mergeadapter_2016_08_28_001.png)
 
+![Screenshot](art/merge_adaper_2016_09_06_001.png)
+
 
 
 ### 感谢

@@ -58,6 +58,8 @@ copy ListHeaderBaseAdapter, ListBaseAdapter, and MergeAdapter, PinnedMergeAdapte
 
 ![Screenshot](art/mergeadapter_2016_08_28_001.png)
 
+![Screenshot](art/merge_adaper_2016_09_06_001.png)
+
 ### Thanks
 
 [CWAC MergeAdapter](https://github.com/commonsguy/cwac-merge)
