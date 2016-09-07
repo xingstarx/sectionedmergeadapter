@@ -16,12 +16,15 @@ import android.widget.TextView;
 import java.util.ArrayList;
 import java.util.List;
 
+import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeRecyclerAdapter;
+
 
 public class RecyclerViewActivity extends AppCompatActivity {
 
     private String TAG = "RecyclerViewActivity";
     private RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
+    private MergeRecyclerAdapter mMergeRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,10 +36,18 @@ public class RecyclerViewActivity extends AppCompatActivity {
             array.add("Row " + i);
         }
         mAdapter = new MyAdapter(array);
+        MyAdapter mAdapter2 = new MyAdapter(array);
+
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, null));
-        mRecyclerView.setAdapter(mAdapter);
+
+        mMergeRecyclerAdapter = new MergeRecyclerAdapter();
+        mMergeRecyclerAdapter.addAdapter(mAdapter);
+        mMergeRecyclerAdapter.addAdapter(mAdapter2);
+        mRecyclerView.setAdapter(mMergeRecyclerAdapter);
+
+
     }
 
     public static void startRecyclerViewActivity(Context context) {
@@ -44,7 +55,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         context.startActivity(intent);
     }
 
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
+    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements MergeRecyclerAdapter.OnViewTypeCheckListener{
         private List<String> mData = new ArrayList<>();
 
 
@@ -54,7 +65,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.e(TAG, "onCreateViewHolder() method invoked");
+            Log.e(TAG, "onCreateViewHolder() method invoked parent == " + parent + ", viewType == " + viewType);
             final LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
             final View sView = mInflater.inflate(R.layout.item_list, parent, false);
             return new ViewHolder(sView);
@@ -62,7 +73,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
-            Log.e(TAG, "onBindViewHolder() method invoked");
+            Log.e(TAG, "onBindViewHolder() method invoked, holder == " + holder + ", position ==" + position);
             holder.textView.setText(mData.get(position));
         }
 
@@ -76,6 +87,11 @@ public class RecyclerViewActivity extends AppCompatActivity {
         public int getItemViewType(int position) {
             Log.e(TAG, "getItemViewType() method invoked");
             return super.getItemViewType(position);
+        }
+
+        @Override
+        public boolean checkViewType(int viewType) {
+            return true;
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
