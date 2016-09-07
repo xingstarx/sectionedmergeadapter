@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,6 +54,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         @Override
         public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            Log.e(TAG, "onCreateViewHolder() method invoked");
             final LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
             final View sView = mInflater.inflate(R.layout.item_list, parent, false);
             return new ViewHolder(sView);
@@ -60,18 +62,27 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(ViewHolder holder, int position) {
+            Log.e(TAG, "onBindViewHolder() method invoked");
             holder.textView.setText(mData.get(position));
         }
 
         @Override
         public int getItemCount() {
+            Log.e(TAG, "getItemCount() method invoked");
             return mData.size();
+        }
+
+        @Override
+        public int getItemViewType(int position) {
+            Log.e(TAG, "getItemViewType() method invoked");
+            return super.getItemViewType(position);
         }
 
         public class ViewHolder extends RecyclerView.ViewHolder {
             TextView textView;
             public ViewHolder(View itemView) {
                 super(itemView);
+                Log.e(TAG, "ViewHolder() method invoked");
                 textView = (TextView) itemView.findViewById(android.R.id.text1);
             }
         }
