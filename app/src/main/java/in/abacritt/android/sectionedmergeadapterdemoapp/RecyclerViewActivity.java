@@ -26,6 +26,11 @@ public class RecyclerViewActivity extends AppCompatActivity {
     private MyAdapter mAdapter;
     private MergeRecyclerAdapter mMergeRecyclerAdapter;
 
+    public static void startRecyclerViewActivity(Context context) {
+        Intent intent = new Intent(context, RecyclerViewActivity.class);
+        context.startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -50,12 +55,9 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
     }
 
-    public static void startRecyclerViewActivity(Context context) {
-        Intent intent = new Intent(context, RecyclerViewActivity.class);
-        context.startActivity(intent);
-    }
-
-    class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> implements MergeRecyclerAdapter.OnViewTypeCheckListener{
+    class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements MergeRecyclerAdapter.OnViewTypeCheckListener {
+        private static final int ITEM_TITLE = 0;
+        private static final int ITEM_CONTENT = 1;
         private List<String> mData = new ArrayList<>();
 
 
@@ -64,17 +66,29 @@ public class RecyclerViewActivity extends AppCompatActivity {
         }
 
         @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             Log.e(TAG, "onCreateViewHolder() method invoked parent == " + parent + ", viewType == " + viewType);
-            final LayoutInflater mInflater = LayoutInflater.from(parent.getContext());
-            final View sView = mInflater.inflate(R.layout.item_list, parent, false);
-            return new ViewHolder(sView);
+            if (viewType == ITEM_TITLE) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header, parent, false);
+                return new TitleViewHolder(view);
+            } else if (viewType == ITEM_CONTENT) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_list, parent, false);
+                return new ContentViewHolder(view);
+            }
+            throw new IllegalStateException("Adapter don't have this viewType " + viewType);
         }
 
         @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
+        public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
             Log.e(TAG, "onBindViewHolder() method invoked, holder == " + holder + ", position ==" + position);
-            holder.textView.setText(mData.get(position));
+            if (holder instanceof ContentViewHolder) {
+                ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
+                contentViewHolder.contentView.setText(mData.get(position));
+            }
+            if (holder instanceof TitleViewHolder) {
+                TitleViewHolder titleViewHolder = (TitleViewHolder) holder;
+                titleViewHolder.textView.setText(mData.get(position));
+            }
         }
 
         @Override
@@ -86,20 +100,34 @@ public class RecyclerViewActivity extends AppCompatActivity {
         @Override
         public int getItemViewType(int position) {
             Log.e(TAG, "getItemViewType() method invoked");
-            return super.getItemViewType(position);
+            if (position % 4 == 0) {
+                return ITEM_TITLE;
+            }
+            return ITEM_CONTENT;
         }
 
         @Override
         public boolean checkViewType(int viewType) {
-            return true;
+            return viewType == ITEM_TITLE || viewType == ITEM_CONTENT;
         }
 
-        public class ViewHolder extends RecyclerView.ViewHolder {
-            TextView textView;
-            public ViewHolder(View itemView) {
+        public class ContentViewHolder extends RecyclerView.ViewHolder {
+            TextView contentView;
+
+            public ContentViewHolder(View itemView) {
                 super(itemView);
                 Log.e(TAG, "ViewHolder() method invoked");
-                textView = (TextView) itemView.findViewById(android.R.id.text1);
+                contentView = (TextView) itemView.findViewById(android.R.id.text1);
+            }
+        }
+
+        public class TitleViewHolder extends RecyclerView.ViewHolder {
+            TextView textView;
+
+            public TitleViewHolder(View itemView) {
+                super(itemView);
+                Log.e(TAG, "ViewHolder() method invoked");
+                textView = (TextView) itemView.findViewById(R.id.header_text);
             }
         }
     }
