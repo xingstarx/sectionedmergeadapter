@@ -23,8 +23,6 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
     private String TAG = "RecyclerViewActivity";
     private RecyclerView mRecyclerView;
-    private MyAdapter mAdapter;
-    private MergeRecyclerAdapter mMergeRecyclerAdapter;
 
     public static void startRecyclerViewActivity(Context context) {
         Intent intent = new Intent(context, RecyclerViewActivity.class);
@@ -40,19 +38,17 @@ public class RecyclerViewActivity extends AppCompatActivity {
         for (int i = 0; i < 30; i++) {
             array.add("Row " + i);
         }
-        mAdapter = new MyAdapter(array);
+        MyAdapter mAdapter = new MyAdapter(array);
         MyAdapter mAdapter2 = new MyAdapter(array);
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, null));
 
-        mMergeRecyclerAdapter = new MergeRecyclerAdapter();
+        MergeRecyclerAdapter mMergeRecyclerAdapter = new MergeRecyclerAdapter();
         mMergeRecyclerAdapter.addAdapter(mAdapter);
         mMergeRecyclerAdapter.addAdapter(mAdapter2);
         mRecyclerView.setAdapter(mMergeRecyclerAdapter);
-
-
     }
 
     class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements MergeRecyclerAdapter.OnViewTypeCheckListener {
