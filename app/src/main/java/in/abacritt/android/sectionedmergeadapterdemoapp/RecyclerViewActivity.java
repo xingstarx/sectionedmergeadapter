@@ -56,7 +56,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
     }
 
     class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements MergeRecyclerAdapter.OnViewTypeCheckListener {
-        private static final int ITEM_TITLE = 0;
+        private static final int ITEM_HEADER = 0;
         private static final int ITEM_CONTENT = 1;
         private List<String> mData = new ArrayList<>();
 
@@ -68,7 +68,7 @@ public class RecyclerViewActivity extends AppCompatActivity {
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             Log.e(TAG, "onCreateViewHolder() method invoked parent == " + parent + ", viewType == " + viewType);
-            if (viewType == ITEM_TITLE) {
+            if (viewType == ITEM_HEADER) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header, parent, false);
                 return new TitleViewHolder(view);
             } else if (viewType == ITEM_CONTENT) {
@@ -100,15 +100,15 @@ public class RecyclerViewActivity extends AppCompatActivity {
         @Override
         public int getItemViewType(int position) {
             Log.e(TAG, "getItemViewType() method invoked");
-            if (position % 4 == 0) {
-                return ITEM_TITLE;
+            if (position == 0) {
+                return ITEM_HEADER;
             }
             return ITEM_CONTENT;
         }
 
         @Override
         public boolean checkViewType(int viewType) {
-            return viewType == ITEM_TITLE || viewType == ITEM_CONTENT;
+            return viewType == ITEM_HEADER || viewType == ITEM_CONTENT;
         }
 
         public class ContentViewHolder extends RecyclerView.ViewHolder {
