@@ -7,7 +7,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,7 +62,6 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         @Override
         public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            Log.e(TAG, "onCreateViewHolder() method invoked parent == " + parent + ", viewType == " + viewType);
             if (viewType == ITEM_HEADER) {
                 View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_header, parent, false);
                 return new TitleViewHolder(view);
@@ -76,7 +74,6 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         @Override
         public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-            Log.e(TAG, "onBindViewHolder() method invoked, holder == " + holder + ", position ==" + position);
             if (holder instanceof ContentViewHolder) {
                 ContentViewHolder contentViewHolder = (ContentViewHolder) holder;
                 contentViewHolder.contentView.setText(mData.get(position));
@@ -89,13 +86,11 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         @Override
         public int getItemCount() {
-            Log.e(TAG, "getItemCount() method invoked");
             return mData.size();
         }
 
         @Override
         public int getItemViewType(int position) {
-            Log.e(TAG, "getItemViewType() method invoked");
             if (position == 0) {
                 return ITEM_HEADER;
             }
@@ -112,7 +107,6 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
             public ContentViewHolder(View itemView) {
                 super(itemView);
-                Log.e(TAG, "ViewHolder() method invoked");
                 contentView = (TextView) itemView.findViewById(android.R.id.text1);
             }
         }
@@ -122,7 +116,6 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
             public TitleViewHolder(View itemView) {
                 super(itemView);
-                Log.e(TAG, "ViewHolder() method invoked");
                 textView = (TextView) itemView.findViewById(R.id.header_text);
             }
         }
