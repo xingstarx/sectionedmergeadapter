@@ -19,6 +19,10 @@
         <activity
             android:name=".PinnedListViewActivity"
             android:label="@string/activity_pinned_merge_adapter" />
+
+        <activity
+            android:name=".RecyclerViewActivity"
+            android:label="@string/activity_recycler_view_adapter" />
     </application>
 
 </manifest>
