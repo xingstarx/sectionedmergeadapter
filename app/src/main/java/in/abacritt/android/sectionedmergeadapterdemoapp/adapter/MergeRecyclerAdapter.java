@@ -144,30 +144,24 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         @Override
         public void onItemRangeChanged(int positionStart, int itemCount) {
             super.onItemRangeChanged(positionStart, itemCount);
-//            notifyItemRangeChanged(positionStart + getHeaderCount(), itemCount);
         }
 
 
         @Override
         public void onItemRangeInserted(int positionStart, int itemCount) {
             super.onItemRangeInserted(positionStart, itemCount);
-//            notifyItemRangeInserted(positionStart + getHeaderCount(), itemCount);
         }
 
 
         @Override
         public void onItemRangeRemoved(int positionStart, int itemCount) {
             super.onItemRangeRemoved(positionStart, itemCount);
-//            notifyItemRangeRemoved(positionStart + getHeaderCount(), itemCount);
         }
 
 
         @Override
         public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
             super.onItemRangeMoved(fromPosition, toPosition, itemCount);
-//            int hCount = getHeaderCount();
-            // TODO: No notifyItemRangeMoved method?
-//            notifyItemRangeChanged(fromPosition + hCount, toPosition + hCount + itemCount);
         }
     };
 }

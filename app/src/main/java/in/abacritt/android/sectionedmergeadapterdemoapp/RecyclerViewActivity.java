@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeRecyclerAdapter;
 
@@ -34,20 +35,44 @@ public class RecyclerViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_recyclerview);
         mRecyclerView = (RecyclerView) findViewById(android.R.id.list);
         List<String> array = new ArrayList<>();
-        for (int i = 0; i < 30; i++) {
+        for (int i = 0; i < 10; i++) {
             array.add("Row " + i);
         }
-        MyAdapter mAdapter = new MyAdapter(array);
-        MyAdapter mAdapter2 = new MyAdapter(array);
+        final MyAdapter mAdapter = new MyAdapter(array);
+        final MyAdapter mAdapter2 = new MyAdapter(new CopyOnWriteArrayList<>(array));
+
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
         mRecyclerView.addItemDecoration(new DividerItemDecoration(this, null));
 
-        MergeRecyclerAdapter mMergeRecyclerAdapter = new MergeRecyclerAdapter();
+        final MergeRecyclerAdapter mMergeRecyclerAdapter = new MergeRecyclerAdapter();
         mMergeRecyclerAdapter.addAdapter(mAdapter);
         mMergeRecyclerAdapter.addAdapter(mAdapter2);
         mRecyclerView.setAdapter(mMergeRecyclerAdapter);
+
+
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter.addData("Android Developer xingstarx", 8);
+                mMergeRecyclerAdapter.notifyItemInserted(8);
+
+                mRecyclerView.removeCallbacks(this);
+                mRecyclerView.postDelayed(this, 2000);
+            }
+        }, 2000);
+
+        mRecyclerView.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mAdapter2.addData("Android Developer xingstarx2", 5);
+                mMergeRecyclerAdapter.notifyItemInserted(mAdapter.getItemCount() + 5);
+
+                mRecyclerView.removeCallbacks(this);
+                mRecyclerView.postDelayed(this, 3000);
+            }
+        }, 3000);
     }
 
     class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements MergeRecyclerAdapter.OnViewTypeCheckListener {
@@ -58,6 +83,14 @@ public class RecyclerViewActivity extends AppCompatActivity {
 
         public MyAdapter(List<String> mData) {
             this.mData = mData;
+        }
+
+        public void addData(String data) {
+            mData.add(data);
+        }
+
+        public void addData(String data, int position) {
+            mData.add(position, data);
         }
 
         @Override
