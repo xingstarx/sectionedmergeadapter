@@ -1,4 +1,4 @@
-package in.abacritt.android.sectionedmergeadapterdemoapp;
+package com.xingstarx.mergeadapter;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,11 +11,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xingstarx.mergeadapter.adapter.ListHeaderBaseAdapter;
+import com.xingstarx.mergeadapter.adapter.MergeAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.ListHeaderBaseAdapter;
-import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeAdapter;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -72,16 +72,16 @@ public class MainActivity extends AppCompatActivity {
     class HeaderAdapter extends ListHeaderBaseAdapter<String> implements AdapterView.OnItemClickListener {
         public int headerType;
 
-        public void setHeaderType(int headerType) {
-            this.headerType = headerType;
-        }
-
         public HeaderAdapter(Context ctx, ArrayList<String> dataList, int theRowResourceId) {
             super(ctx, dataList, theRowResourceId);
         }
 
         public HeaderAdapter(Context ctx, ArrayList<String> dataList, int theRowResourceId, int headerViewResourceId) {
             super(ctx, dataList, theRowResourceId, headerViewResourceId);
+        }
+
+        public void setHeaderType(int headerType) {
+            this.headerType = headerType;
         }
 
         @Override

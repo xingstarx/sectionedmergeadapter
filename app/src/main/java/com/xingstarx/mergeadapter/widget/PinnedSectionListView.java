@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package in.abacritt.android.sectionedmergeadapterdemoapp.widget;
+package com.xingstarx.mergeadapter.widget;
 
 import android.content.Context;
 import android.database.DataSetObserver;

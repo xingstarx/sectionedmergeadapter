@@ -1,4 +1,4 @@
-package in.abacritt.android.sectionedmergeadapterdemoapp.adapter;
+package com.xingstarx.mergeadapter.adapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;

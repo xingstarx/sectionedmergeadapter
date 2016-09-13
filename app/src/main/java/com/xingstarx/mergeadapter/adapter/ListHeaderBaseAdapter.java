@@ -1,4 +1,4 @@
-package in.abacritt.android.sectionedmergeadapterdemoapp.adapter;
+package com.xingstarx.mergeadapter.adapter;
 
 import android.content.Context;
 import android.view.View;

@@ -1,4 +1,4 @@
-package in.abacritt.android.sectionedmergeadapterdemoapp;
+package com.xingstarx.mergeadapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,11 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.xingstarx.mergeadapter.adapter.MergeRecyclerAdapter;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-
-import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeRecyclerAdapter;
 
 
 public class RecyclerViewActivity extends AppCompatActivity {

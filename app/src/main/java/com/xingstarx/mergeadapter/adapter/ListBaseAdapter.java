@@ -1,4 +1,4 @@
-package in.abacritt.android.sectionedmergeadapterdemoapp.adapter;
+package com.xingstarx.mergeadapter.adapter;
 
 /**
  * Created by xiongxingxing on 15/10/26.

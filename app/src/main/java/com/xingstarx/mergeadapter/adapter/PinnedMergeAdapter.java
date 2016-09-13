@@ -1,9 +1,9 @@
-package in.abacritt.android.sectionedmergeadapterdemoapp.adapter;
+package com.xingstarx.mergeadapter.adapter;
 
 
 import android.widget.ListAdapter;
 
-import in.abacritt.android.sectionedmergeadapterdemoapp.widget.PinnedSectionListView;
+import com.xingstarx.mergeadapter.widget.PinnedSectionListView;
 
 
 public class PinnedMergeAdapter extends MergeAdapter implements PinnedSectionListView.PinnedSectionListAdapter {

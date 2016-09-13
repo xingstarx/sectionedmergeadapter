@@ -1,4 +1,4 @@
-package in.abacritt.android.sectionedmergeadapterdemoapp;
+package com.xingstarx.mergeadapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,13 +10,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.xingstarx.mergeadapter.adapter.ListHeaderBaseAdapter;
+import com.xingstarx.mergeadapter.adapter.MergeAdapter;
+import com.xingstarx.mergeadapter.adapter.PinnedMergeAdapter;
+import com.xingstarx.mergeadapter.widget.PinnedSectionListView;
+
 import java.util.ArrayList;
 import java.util.List;
-
-import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.ListHeaderBaseAdapter;
-import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.MergeAdapter;
-import in.abacritt.android.sectionedmergeadapterdemoapp.adapter.PinnedMergeAdapter;
-import in.abacritt.android.sectionedmergeadapterdemoapp.widget.PinnedSectionListView;
 
 
 public class PinnedListViewActivity extends AppCompatActivity {
@@ -59,10 +59,6 @@ public class PinnedListViewActivity extends AppCompatActivity {
     class HeaderAdapter extends ListHeaderBaseAdapter<String> implements AdapterView.OnItemClickListener, PinnedSectionListView.PinnedSectionListAdapter {
         private int mHeaderType;
 
-        public void setHeaderType(int headerType) {
-            this.mHeaderType = headerType;
-        }
-
         public HeaderAdapter(Context ctx, ArrayList<String> dataList, int theRowResourceId) {
             super(ctx, dataList, theRowResourceId);
         }
@@ -76,6 +72,9 @@ public class PinnedListViewActivity extends AppCompatActivity {
             mHeaderType = headerType;
         }
 
+        public void setHeaderType(int headerType) {
+            this.mHeaderType = headerType;
+        }
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
