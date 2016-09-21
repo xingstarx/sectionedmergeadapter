@@ -16,7 +16,8 @@ public class PinnedMergeAdapter extends MergeAdapter implements PinnedSectionLis
 
     @Override
     public boolean isItemPinned(int position) {
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             int size = piece.getCount();
             if (!(piece instanceof PinnedSectionListView.PinnedSectionListAdapter)) {
                 throw new IllegalStateException("the ListAdapter piece need implements PinnedSectionListView.PinnedSectionListAdapter.");
