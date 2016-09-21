@@ -40,7 +40,8 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        for (RecyclerView.Adapter piece : getPieces()) {
+        for (int i =0 ; i < getPieces().size(); i++) {
+            RecyclerView.Adapter piece = getPieces().get(i);
             if (!(piece instanceof OnViewTypeCheckListener)) {
                 throw new IllegalStateException("the sub RecyclerView.Adapter piece need to implements OnViewTypeCheckListener");
             }
@@ -54,7 +55,8 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        for (RecyclerView.Adapter piece : getPieces()) {
+        for (int i =0 ; i < getPieces().size(); i++) {
+            RecyclerView.Adapter piece = getPieces().get(i);
             int size = piece.getItemCount();
             if (position < size) {
                 piece.onBindViewHolder(holder, position);
@@ -67,7 +69,8 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemCount() {
         int total = 0;
-        for (RecyclerView.Adapter piece : getPieces()) {
+        for (int i =0 ; i < getPieces().size(); i++) {
+            RecyclerView.Adapter piece = getPieces().get(i);
             total += piece.getItemCount();
         }
         return total;
@@ -75,7 +78,8 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public int getItemViewType(int position) {
-        for (PieceState piece : pieces.getRawPieces()) {
+        for (int i = 0; i < pieces.getRawPieces().size(); i++) {
+            PieceState piece = pieces.getRawPieces().get(i);
             if (piece.isActive) {
                 int size = piece.adapter.getItemCount();
                 if (position < size) {
@@ -106,7 +110,8 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         }
 
         void setActive(ListAdapter adapter, boolean isActive) {
-            for (PieceState state : pieces) {
+            for (int i = 0; i < pieces.size(); i++) {
+                PieceState state = pieces.get(i);
                 if (state.adapter == adapter) {
                     state.isActive = isActive;
                     active = null;
@@ -122,8 +127,8 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
         List<RecyclerView.Adapter> getPieces() {
             if (active == null) {
                 active = new ArrayList<>();
-
-                for (PieceState state : pieces) {
+                for (int i = 0; i < pieces.size(); i++) {
+                    PieceState state = pieces.get(i);
                     if (state.isActive) {
                         active.add(state.adapter);
                     }

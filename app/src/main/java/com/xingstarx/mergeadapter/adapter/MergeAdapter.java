@@ -66,7 +66,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
      */
     @Override
     public Object getItem(int position) {
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             int size = piece.getCount();
 
             if (position < size) {
@@ -86,7 +87,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
      * @param position Position of the item whose adapter we want
      */
     public ListAdapter getAdapter(int position) {
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             int size = piece.getCount();
 
             if (position < size) {
@@ -106,8 +108,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
     @Override
     public int getCount() {
         int total = 0;
-
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             total += piece.getCount();
         }
 
@@ -121,8 +123,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
     @Override
     public int getViewTypeCount() {
         int total = 0;
-
-        for (PieceState piece : pieces.getRawPieces()) {
+        for (int i = 0 ; i < pieces.getRawPieces().size(); i++) {
+            PieceState piece = pieces.getRawPieces().get(i);
             total += piece.adapter.getViewTypeCount();
         }
 
@@ -142,7 +144,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
         int typeOffset = 0;
         int result = -1;
 
-        for (PieceState piece : pieces.getRawPieces()) {
+        for (int i = 0 ; i < pieces.getRawPieces().size(); i++) {
+            PieceState piece = pieces.getRawPieces().get(i);
             if (piece.isActive) {
                 int size = piece.adapter.getCount();
 
@@ -177,7 +180,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
      */
     @Override
     public boolean isEnabled(int position) {
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             int size = piece.getCount();
 
             if (position < size) {
@@ -194,7 +198,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
      * get the specific Adapter to call it's onItemClick event
      */
     public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             int size = piece.getCount();
             if (position < size && piece instanceof AdapterView.OnItemClickListener) {
                 ((AdapterView.OnItemClickListener) piece).onItemClick(adapterView, view, position, id);
@@ -213,7 +218,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             int size = piece.getCount();
 
             if (position < size) {
@@ -235,7 +241,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
      */
     @Override
     public long getItemId(int position) {
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             int size = piece.getCount();
 
             if (position < size) {
@@ -252,7 +259,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
     public int getPositionForSection(int section) {
         int position = 0;
 
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             if (piece instanceof SectionIndexer) {
                 Object[] sections = ((SectionIndexer) piece).getSections();
                 int numSections = 0;
@@ -278,7 +286,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
     public int getSectionForPosition(int position) {
         int section = 0;
 
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0 ; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             int size = piece.getCount();
 
             if (position < size) {
@@ -307,7 +316,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
     public Object[] getSections() {
         ArrayList<Object> sections = new ArrayList<Object>();
 
-        for (ListAdapter piece : getPieces()) {
+        for (int i = 0; i < getPieces().size(); i++) {
+            ListAdapter piece = getPieces().get(i);
             if (piece instanceof SectionIndexer) {
                 Object[] curSections = ((SectionIndexer) piece).getSections();
 
@@ -344,15 +354,16 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
     }
 
     private static class PieceStateRoster {
-        protected ArrayList<PieceState> pieces = new ArrayList<>();
-        protected ArrayList<ListAdapter> active = null;
+        protected List<PieceState> pieces = new ArrayList<>();
+        protected List<ListAdapter> active = null;
 
         void add(ListAdapter adapter) {
             pieces.add(new PieceState(adapter, true));
         }
 
         void setActive(ListAdapter adapter, boolean isActive) {
-            for (PieceState state : pieces) {
+            for (int i = 0; i < pieces.size(); i++) {
+                PieceState state = pieces.get(i);
                 if (state.adapter == adapter) {
                     state.isActive = isActive;
                     active = null;
@@ -369,7 +380,8 @@ public class MergeAdapter extends BaseAdapter implements SectionIndexer {
             if (active == null) {
                 active = new ArrayList<>();
 
-                for (PieceState state : pieces) {
+                for (int i = 0; i < pieces.size(); i++) {
+                    PieceState state = pieces.get(i);
                     if (state.isActive) {
                         active.add(state.adapter);
                     }
