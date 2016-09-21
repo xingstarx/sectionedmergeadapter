@@ -98,6 +98,12 @@ MergeRecyclerAdapter 实现了聚合子Adapter的功能,功能类似于MergeAdap
 
 ![Screenshot](art/merge_adaper_2016_09_06_001.png)
 
+![Screenshot](art/device-2016-09-13-192233-mergeadapter.gif)
+
+![Screenshot](art/device-2016-09-13-192330-pinned-mergeadapter.gif)
+
+![Screenshot](art/device-2016-09-13-192408-recycler-mergeadapter.gif)
+
 
 
 ### 感谢
