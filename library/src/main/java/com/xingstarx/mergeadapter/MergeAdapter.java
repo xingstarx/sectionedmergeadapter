@@ -13,7 +13,7 @@
  * limitations under the License.
  */
 
-package com.xingstarx.mergeadapter.adapter;
+package com.xingstarx.mergeadapter;
 
 import android.database.DataSetObserver;
 import android.view.View;

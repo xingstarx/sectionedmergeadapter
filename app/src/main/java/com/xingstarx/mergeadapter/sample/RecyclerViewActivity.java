@@ -1,4 +1,4 @@
-package com.xingstarx.mergeadapter;
+package com.xingstarx.mergeadapter.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.xingstarx.mergeadapter.adapter.MergeRecyclerAdapter;
+import com.xingstarx.mergeadapter.MergeRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

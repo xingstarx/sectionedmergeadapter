@@ -1,4 +1,4 @@
-package com.xingstarx.mergeadapter;
+package com.xingstarx.mergeadapter.sample;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xingstarx.mergeadapter.adapter.ListHeaderBaseAdapter;
-import com.xingstarx.mergeadapter.adapter.MergeAdapter;
+import com.xingstarx.mergeadapter.ListHeaderBaseAdapter;
+import com.xingstarx.mergeadapter.MergeAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

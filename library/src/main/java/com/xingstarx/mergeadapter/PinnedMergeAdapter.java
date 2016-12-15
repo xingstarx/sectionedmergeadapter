@@ -1,4 +1,4 @@
-package com.xingstarx.mergeadapter.adapter;
+package com.xingstarx.mergeadapter;
 
 
 import android.widget.ListAdapter;
