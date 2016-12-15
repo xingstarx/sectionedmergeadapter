@@ -13,6 +13,29 @@ This is a repo based on [MergeAdapter](https://github.com/commonsguy/cwac-merge)
 - Pinned listview with MergeAdapter 
 - Support RecyclerView with MergeRecyclerAdapter
 
+### How to use it
+
+Step 1. Add the JitPack repository to your build file
+
+Add it in your root build.gradle at the end of repositories:
+```
+allprojects {
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Step 2. Add the dependency in your module build.gradle
+
+```
+dependencies {
+    compile 'com.github.xingstarx:MergeAdapter:v0.1.0'
+	}
+```
+
+
 ### Example code
 
 HeaderAdapter with headerview 
