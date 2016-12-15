@@ -1,4 +1,4 @@
-package com.xingstarx.mergeadapter.adapter;
+package com.xingstarx.mergeadapter;
 
 /**
  * Created by xiongxingxing on 15/10/26.

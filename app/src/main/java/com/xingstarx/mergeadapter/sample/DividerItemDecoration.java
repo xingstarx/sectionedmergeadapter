@@ -1,4 +1,4 @@
-package com.xingstarx.mergeadapter;
+package com.xingstarx.mergeadapter.sample;
 
 import android.content.Context;
 import android.content.res.TypedArray;

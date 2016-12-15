@@ -1,4 +1,4 @@
-package com.xingstarx.mergeadapter.adapter;
+package com.xingstarx.mergeadapter;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
@@ -40,7 +40,7 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
-        for (int i =0 ; i < getPieces().size(); i++) {
+        for (int i = 0; i < getPieces().size(); i++) {
             RecyclerView.Adapter piece = getPieces().get(i);
             if (!(piece instanceof OnViewTypeCheckListener)) {
                 throw new IllegalStateException("the sub RecyclerView.Adapter piece need to implements OnViewTypeCheckListener");
@@ -55,7 +55,7 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-        for (int i =0 ; i < getPieces().size(); i++) {
+        for (int i = 0; i < getPieces().size(); i++) {
             RecyclerView.Adapter piece = getPieces().get(i);
             int size = piece.getItemCount();
             if (position < size) {
@@ -69,7 +69,7 @@ public class MergeRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.View
     @Override
     public int getItemCount() {
         int total = 0;
-        for (int i =0 ; i < getPieces().size(); i++) {
+        for (int i = 0; i < getPieces().size(); i++) {
             RecyclerView.Adapter piece = getPieces().get(i);
             total += piece.getItemCount();
         }

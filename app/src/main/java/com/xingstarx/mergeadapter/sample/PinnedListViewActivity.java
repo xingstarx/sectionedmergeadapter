@@ -1,4 +1,4 @@
-package com.xingstarx.mergeadapter;
+package com.xingstarx.mergeadapter.sample;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,9 +10,9 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.xingstarx.mergeadapter.adapter.ListHeaderBaseAdapter;
-import com.xingstarx.mergeadapter.adapter.MergeAdapter;
-import com.xingstarx.mergeadapter.adapter.PinnedMergeAdapter;
+import com.xingstarx.mergeadapter.ListHeaderBaseAdapter;
+import com.xingstarx.mergeadapter.MergeAdapter;
+import com.xingstarx.mergeadapter.PinnedMergeAdapter;
 import com.xingstarx.mergeadapter.widget.PinnedSectionListView;
 
 import java.util.ArrayList;
